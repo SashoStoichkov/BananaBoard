@@ -1,0 +1,6 @@
+1. Александър Стоичков №2
+2. Елизара Георгиева №11
+3. Илиана Генова №14
+
+Обща тема на курсовата работа: BananaBoard (Trello-like app)
+Хранилище в GitHub: https://github.com/SashoStoichkov/BananaBoard
