@@ -10,7 +10,7 @@ app.config['DEBUG'] = True
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    return 'Welcome to BananaBoard!'
+    return render_template('index.html')
 
 
 if __name__ == '__main__':
