@@ -1,0 +1,50 @@
+@import "main.css";
+
+body {
+	font: 2.5em Futura, sans-serif;
+	background-image: url("../images/banan3.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	height: 100vh;
+	margin: 0;
+}
+
+.card {
+	position: absolute;
+	left: 7em;
+	top: 6em;
+	background-color: white;
+	padding: 2em 4em;
+	width: 35vw;
+	height: 45vh;
+	color: var(--carolina-blue);
+
+	-webkit-transition: -webkit-transform .3s ease-in-out;
+	transition:         transform .3s ease-in-out;
+}
+
+.card:hover {
+	opacity: 0.8;
+	-webkit-transform: rotate(-2deg);
+	transform: rotate(-2deg);
+}
+
+h3 {
+	display: inline;
+	font-size: 1.4em;
+}
+
+h2 {
+	display: inline;
+	font-size: 1.7em;
+	font-family: 'Pacifico', cursive;
+}
+
+.text {
+	padding: 1em 0;
+}
+
+.banner {
+	font-size: 1.2em;
+}

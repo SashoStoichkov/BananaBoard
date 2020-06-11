@@ -1,0 +1,89 @@
+@import "main.css";
+
+body {
+	font: 2.5em Futura, sans-serif;
+	background: linear-gradient(#fdfcfb, #e2d1c3);
+	/* background-color: var(--background); */
+	margin: 0;
+}
+
+
+
+.card > .wrapper2 > .wrapper {
+	background-color: var(--main);
+	display: flex;
+	flex-direction: column;
+	justify-content:center;
+	align-items:flex-start;
+}
+
+.wrapper > *, .wrapper2 > *{
+	margin: 0;
+
+}
+
+.wrapper2 {
+	display: flex;
+	/* align-items: center; */
+	flex-direction: row;
+	justify-content: space-around;
+
+	/* padding: 0 1em; */
+	background-color: var(--main);
+	padding-bottom: 0.5em;
+}
+
+i {
+	color: purple;
+	font-size: 1.1em;
+}
+
+.wrapper2 > .button > button > img {
+	width: 40px;
+	height: 40px;
+}
+
+.card > .heading {
+	background-color: var(--main);
+
+	/* box-shadow: 0px 2px 1px var(--carolina-blue); */
+	line-height: 1.2em;
+	padding: 0.2em;
+}
+.card > .heading:first-child {
+	border-radius: 10px 10px 0px 0px;
+	margin: 0 auto;
+	padding: 0.7em 1.4em;
+	font-size: 1.9em;
+	color: var(--carolina-blue);
+	font-family: 'Libre Baskerville', serif;
+}
+
+
+.card > * {
+	/* padding: 0; */
+	margin: 0;
+	font-weight: normal;
+	font-size: 1.2em;
+	color: var(--carolina-blue);
+
+}
+
+.card > p {
+	padding: 1.6em 2em;
+	background-color: white;
+	border-radius: 0px 0px 10px 10px;
+	font-size: 1.05em;
+	line-height: 1.4em;
+	/* color: black; */
+}
+
+
+
+/* SCSS HEX */
+$green-blue: #2364aaff;
+$carolina-blue: #3da5d9ff;
+$green-sheen: #73bfb8ff;
+$mikado-yellow: #fec601ff;
+$sunglow: #fed134ff;
+$caribbean-green: #57cc99ff;
