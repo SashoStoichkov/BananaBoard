@@ -126,11 +126,11 @@ header > div {
 	height: 2em;
 	margin: 1em 1em;
 	outline: none;
-	border: 1px solid purple;
-	color: purple;
+	border: 1px solid var(--carolina-blue);
+	color: var(--carolina-blue);;
 	box-shadow: 1px 1px 5px var(--sunglow);
 }
 
 .input:focus {
-	border: 1.5px solid purple;
+	border: 1.5px solid var(--carolina-blue);;
 }
