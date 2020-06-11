@@ -1,5 +1,9 @@
 from flask import Flask, render_template, request
 
+from user import User
+from task import Task
+from task_type import TaskType
+
 # Create Flask App
 app = Flask(__name__)
 
