@@ -6,7 +6,9 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>BananaBoard</title>
 	<!-- <link rel="icon" href=""> -->
-	<link rel="stylesheet" href="../static/css/edit.css";
+
+	<link rel="stylesheet" href="../static/css/board.css";>
+<link rel="stylesheet" href="../static/css/edit.css";>
 
 </head>
 <body>
@@ -22,23 +24,46 @@
 		</div>
 	</header>
 
-	<div class="card">
-		<h3>Welcome to<h2> BananaBoard!</h2></h3>
-		<div class="text">
-			Your local organisation board.
-			<br>
-			Easy to use, simple to manage.
-			<br>
-			<br>
-			Keep track of your tasks -
-			<br>
-			all in one place.
+	<div class="board-container">
+		<div class="board-sec">
+			<div class="card">
+				<h2 class="heading">Heading</h2>
+				<div class="wrapper2">
+					<div class="wrapper">
+						<h5 class="heading class">classed as <i>class</i></h5>
+						<h5 class="heading desc">assigned to <i>user</i></h5>
+					</div>
+
+					<div class="button">
+						<button type="button" name="button"><img src="../static/images/edit.png"></button>
+					</div>
+				</div>
+				<p>desc</p>
+			</div>
 		</div>
-		<h3 class="banner">Ready to go bananas?</h3>
+		<div class="board-sec">
+			<div class="card card2">
+				<input class="input" placeholder="title" type="text">
+				<div class="wrapper2">
+					<div class="wrapper">
+						<p></p>
+						<input class="input" placeholder="class" type="text">
+						<input class="input" placeholder="user" type="text">
+							<input class="input" placeholder="description" type="text">
+					</div>
 
-
+					<div class="buttons">
+						<div class="button">
+							<button type="button" name="button"><img src="../static/images/edit.png"></button>
+						</div>
+						<div class="button">
+							<button type="button" name="button"><img src="../static/images/edit.png"></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-
 
 	<footer>
 

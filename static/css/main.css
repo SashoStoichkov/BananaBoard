@@ -119,3 +119,18 @@ header > div {
 	color: var(--main);
 	margin: 1em auto;
 }
+
+.input {
+	border-radius: 4px;
+	width: 15em;
+	height: 2em;
+	margin: 1em 1em;
+	outline: none;
+	border: 1px solid purple;
+	color: purple;
+	box-shadow: 1px 1px 5px var(--sunglow);
+}
+
+.input:focus {
+	border: 1.5px solid purple;
+}

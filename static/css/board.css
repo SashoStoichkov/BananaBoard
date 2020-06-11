@@ -78,7 +78,24 @@ i {
 	/* color: black; */
 }
 
+.input {
+	border-radius: 4px;
+	width: 18em;
+	height: 3em;
+	margin: 1em 1em;
+	outline: none;
+	border: 1px solid purple;
+	color: purple;
+	box-shadow: 1px 1px 5px var(--sunglow);
 
+	padding:0.3em;
+
+}
+
+.input:focus {
+	border: 1.5px solid purple;
+
+}
 
 /* SCSS HEX */
 $green-blue: #2364aaff;

@@ -1,0 +1,62 @@
+@import "main.css";
+
+body {
+	font: 2.5em Futura, sans-serif;
+	background: linear-gradient(#fdfcfb, #e2d1c3);
+	height: 100vh;
+	margin: 0;
+}
+
+
+.card {
+	background-color: var(--main);
+	opacity: 0.8;
+	/* padding: 2em 4em; */
+	/* width: 50vw; */
+	/* height: 50vh; */
+
+}
+
+.board-container {
+	margin: 0 1em;
+}
+
+.board-container > .board-sec {
+	/* padding: 0; */
+	margin: 0 auto;
+	width: 35%;
+	min-height: 40vh;
+	height: 40vh;
+	max-height: 50vh;
+}
+
+
+.card2 > .wrapper2 {
+	flex-flow: column;
+	flex-direction: column;
+	align-items: center;
+	/* background-color: white; */
+	border-radius: 10px;
+
+}
+
+.card > p {
+	height: 15em;
+}
+
+.buttons {
+	display: flex;
+	flex-flow: row;
+	flex-direction: row;
+	justify-content: space-around;
+
+	margin: 1em 0;
+}
+
+.buttons > * {
+	margin: 0em 1em;
+}
+
+.input:first-child {
+	margin: 2.45em;
+}
