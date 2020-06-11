@@ -17,8 +17,9 @@ body {
 
 }
 
+
 .board-container {
-	margin: 0 1em;
+	margin: 0 2em;
 }
 
 .board-container > .board-sec {

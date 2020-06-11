@@ -94,8 +94,9 @@ i {
 
 .input:focus {
 	border: 1.5px solid purple;
-
 }
+
+
 
 /* SCSS HEX */
 $green-blue: #2364aaff;

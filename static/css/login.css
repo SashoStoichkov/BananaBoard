@@ -1,0 +1,11 @@
+@import "main.css";
+
+.login2 {
+	width: 15em;
+}
+
+.card > h3 {
+	font-family: 'Pacifico', cursive;
+	font-size: 3em;
+	padding: 1.4em;
+}
