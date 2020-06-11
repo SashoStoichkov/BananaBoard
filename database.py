@@ -19,27 +19,30 @@ conn.cursor().execute(
     '''
         CREATE TABLE IF NOT EXISTS task_status
             (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                status TEXT UNIQUE NOT NULL
+                id INTEGER PRIMARY KEY NOT NULL,
+                status TEXT NOT NULL
             )
     '''
 )
 conn.cursor().execute(
     '''
-        INSERT INTO task_status
-        VALUES (1, 'TO DO')
+        INSERT OR IGNORE
+        INTO task_status
+        VALUES (1, "TO DO")
     '''
 )
 conn.cursor().execute(
     '''
-        INSERT INTO task_status
-        VALUES (2, 'DOING')
+        INSERT OR IGNORE
+        INTO task_status
+        VALUES (2, "DOING")
     '''
 )
 conn.cursor().execute(
     '''
-        INSERT INTO task_status
-        VALUES (3, 'DONE')
+        INSERT OR IGNORE
+        INTO task_status
+        VALUES (3, "DONE")
     '''
 )
 conn.cursor().execute(
