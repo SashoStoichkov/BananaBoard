@@ -117,20 +117,6 @@ class Task:
             return Task(*row)
 
     @staticmethod
-    def select_by_title(user_id, title):
-        with DB() as db:
-            return db.execute(
-                '''
-                    SELECT tasks.title, tasks.content,
-                        tasks.task_status_id, tasks.task_type_id
-                    FROM tasks
-                        INNER JOIN user_tasks
-                            ON tasks.id = user_tasks.task_id
-                    WHERE user_tasks.user_id = ? AND tasks.title = ?
-                ''', (user_id, title)
-            ).fetchone()
-
-    @staticmethod
     def edit_content(task_id, content):
         if not content:
             return None
@@ -181,8 +167,8 @@ class Task:
                 return False
 
     @staticmethod
-    def edit_type(task_id, type):
-        if not type:
+    def edit_type(task_id, type_id):
+        if not type_id:
             return None
 
         with DB() as db:
@@ -197,17 +183,17 @@ class Task:
                 db.execute(
                     '''
                         UPDATE tasks
-                        SET type = ?
+                        SET task_type_id = ?
                         WHERE id = ?
-                    ''', (type, task_id)
+                    ''', (type_id, task_id)
                 )
 
             else:
                 return False
 
     @staticmethod
-    def edit_status(task_id, status):
-        if not status:
+    def edit_status(task_id, status_id):
+        if not status_id:
             return None
 
         with DB() as db:
@@ -222,9 +208,9 @@ class Task:
                 db.execute(
                     '''
                         UPDATE tasks
-                        SET content = ?
+                        SET task_status_id = ?
                         WHERE id = ?
-                    ''', (status, task_id)
+                    ''', (status_id, task_id)
                 )
 
             else:
