@@ -102,6 +102,9 @@ class Task:
 
     @staticmethod
     def select_by_title(user_id, title):
+        if not title:
+            return None
+
         with DB() as db:
             row = db.execute(
                 '''
@@ -114,7 +117,10 @@ class Task:
                 ''', (user_id, title)
             ).fetchone()
 
-            return Task(*row)
+            if row:
+                return Task(*row)
+            else:
+                return False
 
     @staticmethod
     def edit_content(task_id, content):
