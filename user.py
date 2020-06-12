@@ -50,23 +50,40 @@ class User:
             ).fetchone()[0]
 
     @staticmethod
-    def get_user_by_username(username):
+    def get_user_by_id(user_id):
+        if not user_id:
+            return None
+
         with DB() as db:
-            if not username:
-                return None
+            row = db.execute(
+                '''
+                    SELECT name, email FROM users
+                    WHERE name = ?
+                ''', (user_id,)
+            ).fetchone()
 
-            with DB() as db:
-                row = db.execute(
-                    '''
-                        SELECT name, email FROM users
-                        WHERE name = ?
-                    ''', (username,)
-                ).fetchone()
+            if row:
+                return User(*row)
 
-                if row:
-                    return User(*row)
+            return False
 
-                return False
+    @staticmethod
+    def get_user_by_username(username):
+        if not username:
+            return None
+
+        with DB() as db:
+            row = db.execute(
+                '''
+                    SELECT name, email FROM users
+                    WHERE name = ?
+                ''', (username,)
+            ).fetchone()
+
+            if row:
+                return User(*row)
+
+            return False
 
     @staticmethod
     def get_user_by_email(email):

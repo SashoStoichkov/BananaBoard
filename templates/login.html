@@ -16,32 +16,31 @@
 	<header>
 		<h1>BananaBoard</h1>
 		<div class="header-route">
-			<div class="login button">
-				<button type="button" name="button" >Login</button>
-			</div>
+			<!-- <div class="login button">
+				<button type="button" name="button">Login</button>
+			</div> -->
 			<div class="register button">
-				<button type="button"  name="button">Register</button>
+				<button onclick="location.href = '/register';" type="button" name="button">Register</button>
 			</div>
 		</div>
 	</header>
 
 	<div class="board-container">
 		<div class="board-sec">
-			<div class="card card2">
+			<form action="{{ url_for('login') }}" class="card card2" method="POST">
 				<h3>Login</h3>
-				<input class="input" placeholder="username" type="text">
-				<input class="input" placeholder="password" type="text">
+
+				<input class="input" placeholder="username" type="text" name="username" required>
+				<input class="input" placeholder="password" type="password" name="password" required>
+
 				<div class="wrapper2">
-
-
 					<div class="buttons">
 						<div class="button login2">
-							<button type="button"  name="button"><img src="../static/images/edit.png"></button>
+							<button type="submit" name="button"><img src="../static/images/edit.png"></button>
 						</div>
-
 					</div>
 				</div>
-			</div>
+			</form>
 		</div>
 	</div>
 

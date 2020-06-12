@@ -47,7 +47,7 @@ conn.cursor().execute(
 )
 conn.cursor().execute(
     '''
-        CREATE TABLE IF NOT EXISTS task_type
+        CREATE TABLE IF NOT EXISTS task_types
             (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 title TEXT UNIQUE NOT NULL
