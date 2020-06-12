@@ -3,7 +3,7 @@
 .login2 {
 	width: 15em;
 }
-/* 
+
 body {
 	font: 2.5em Futura, sans-serif;
 	background-image: url("../images/banan3.jpg");
@@ -12,11 +12,11 @@ body {
 	background-size: cover;
 	height: 100vh;
 	margin: 0;
-} */
+}
 
 
 .card > h3 {
 	font-family: 'Pacifico', cursive;
 	font-size: 3em;
-	padding: 1.4em;
+	padding: 1em;
 }

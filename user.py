@@ -58,7 +58,7 @@ class User:
             row = db.execute(
                 '''
                     SELECT name, email FROM users
-                    WHERE name = ?
+                    WHERE id = ?
                 ''', (user_id,)
             ).fetchone()
 
