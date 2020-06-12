@@ -69,20 +69,18 @@ conn.cursor().execute(
             )
     '''
 )
-
 conn.cursor().execute(
-	'''
-		CREATE TABLE IF NOT EXISTS user_tasks
-			(
-				user_id INTEGER NOT NULL,
-				task_id INTEGER NOT NULL,
+    '''
+        CREATE TABLE IF NOT EXISTS user_tasks
+            (
+                user_id INTEGER NOT NULL,
+                task_id INTEGER NOT NULL,
 
-				FOREIGN KEY (user_id) REFERENCES users(id),
-				FOREIGN KEY (task_id) REFERENCES tasks(id)
-			)
-	'''
+                FOREIGN KEY (user_id) REFERENCES users(id),
+                FOREIGN KEY (task_id) REFERENCES tasks(id)
+            )
+    '''
 )
-
 conn.commit()
 
 

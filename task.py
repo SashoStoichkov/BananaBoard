@@ -1,5 +1,6 @@
 from database import DB
 
+
 class Task:
     def __init__(self, title, content, task_status_id, task_type_id):
         this.id = None
@@ -10,26 +11,32 @@ class Task:
 
     def create(self, user_id):
         with DB() as db:
-            values = (None, self.title, self.content, self.task_status_id, self.task_type_id)
+            values = (
+                None, self.title, self.content,
+                self.task_status_id, self.task_type_id
+            )
+
             db.execute(
                 '''
                     INSERT INTO tasks
                     VALUES (?, ?, ?, ?, ?)
                 ''', values
             )
+
             id = db.execute(
                 '''
-                    SELECT id
-                    FROM tasks
+                    SELECT id FROM tasks
                     WHERE tasks.title = ?
                 ''', (self.title,)
             ).fetchone()
+
             db.execute(
                 '''
                     INSERT INTO user_tasks
                     VALUES (?, ?)
                 ''', (user_id, id)
             )
+
             return self
 
     @staticmethod
@@ -39,12 +46,12 @@ class Task:
                 '''
                     SELECT tasks.title, tasks.content, task_types.title
                     FROM tasks
-                    INNER JOIN task_types
-                    ON tasks.task_type_id = task_type.id
-                    INNER JOIN user_tasks
-                    ON tasks.id = user_tasks.task_id
-                    INNER JOIN users
-                    ON user_tasks.user_id = users.id
+                        INNER JOIN task_types
+                            ON tasks.task_type_id = task_type.id
+                        INNER JOIN user_tasks
+                            ON tasks.id = user_tasks.task_id
+                        INNER JOIN users
+                            ON user_tasks.user_id = users.id
                     WHERE users.id = ?
                 ''', (user_id,)
             ).fetchall()
@@ -54,8 +61,7 @@ class Task:
         with DB() as db:
             return db.execute(
                 '''
-                    SELECT COUNT(user_tasks.task_id)
-                    FROM user_tasks
+                    SELECT COUNT(user_tasks.task_id) FROM user_tasks
                     WHERE users.id = ?
                 ''', (user_id,)
             ).fetchone()
@@ -67,16 +73,15 @@ class Task:
                 '''
                     SELECT tasks.title, tasks.content, task_types.title
                     FROM tasks
-                    INNER JOIN task_types
-                    ON tasks.task_type_id = task_type.id
-                    INNER JOIN user_tasks
-                    ON tasks.id = user_tasks.task_id
-                    INNER JOIN users
-                    ON user_tasks.user_id = users.id
+                        INNER JOIN task_types
+                            ON tasks.task_type_id = task_type.id
+                        INNER JOIN user_tasks
+                            ON tasks.id = user_tasks.task_id
+                        INNER JOIN users
+                            ON user_tasks.user_id = users.id
                     WHERE users.id = ? AND tasks.task_status_id = ?
                 ''', (user_id, status_id)
             ).fetchall()
-
 
     @staticmethod
     def display_by_type(user_id, task_type):
@@ -85,46 +90,45 @@ class Task:
                 '''
                     SELECT tasks.title, tasks.content, task_types.title
                     FROM tasks
-                    INNER JOIN task_types
-                    ON tasks.task_type_id = task_type.id
-                    INNER JOIN user_tasks
-                    ON tasks.id = user_tasks.task_id
-                    INNER JOIN users
-                    ON user_tasks.user_id = users.id
+                        INNER JOIN task_types
+                            ON tasks.task_type_id = task_type.id
+                        INNER JOIN user_tasks
+                            ON tasks.id = user_tasks.task_id
+                        INNER JOIN users
+                            ON user_tasks.user_id = users.id
                     WHERE users.id = ? AND task_types.title = ?
                 ''', (user_id, task_type)
             ).fetchall()
-
 
     @staticmethod
     def select_by_title(user_id, title):
         with DB() as db:
             row = db.execute(
                 '''
-                    SELECT tasks.title, tasks.content, tasks.task_type_id, tasks.task_status_id
+                    SELECT tasks.title, tasks.content,
+                        tasks.task_type_id, tasks.task_status_id
                     FROM tasks
-                    INNER JOIN user_tasks
-                    ON tasks.id = user_tasks.task_id
+                        INNER JOIN user_tasks
+                            ON tasks.id = user_tasks.task_id
                     WHERE user_tasks.user_id = ? AND tasks.title = ?
                 ''', (user_id, title)
             ).fetchone()
 
             return Task(*row)
 
-
     @staticmethod
     def select_by_title(user_id, title):
         with DB() as db:
             return db.execute(
                 '''
-                    SELECT tasks.title, tasks.content, tasks.task_status_id, tasks.task_type_id
+                    SELECT tasks.title, tasks.content,
+                        tasks.task_status_id, tasks.task_type_id
                     FROM tasks
-                    INNER JOIN user_tasks
-                    ON tasks.id = user_tasks.task_id
+                        INNER JOIN user_tasks
+                            ON tasks.id = user_tasks.task_id
                     WHERE user_tasks.user_id = ? AND tasks.title = ?
                 ''', (user_id, title)
             ).fetchone()
-
 
     @staticmethod
     def edit_content(task_id, content):
@@ -134,8 +138,7 @@ class Task:
         with DB() as db:
             row = db.execute(
                 '''
-                    SELECT *
-                    FROM tasks
+                    SELECT * FROM tasks
                     WHERE id = ?
                 ''', (task_id,)
             ).fetchone()
@@ -152,7 +155,6 @@ class Task:
             else:
                 return False
 
-
     @staticmethod
     def edit_title(task_id, title):
         if not title:
@@ -161,8 +163,7 @@ class Task:
         with DB() as db:
             row = db.execute(
                 '''
-                    SELECT *
-                    FROM tasks
+                    SELECT * FROM tasks
                     WHERE id = ?
                 ''', (task_id,)
             ).fetchone()
@@ -179,7 +180,6 @@ class Task:
             else:
                 return False
 
-
     @staticmethod
     def edit_type(task_id, type):
         if not type:
@@ -188,8 +188,7 @@ class Task:
         with DB() as db:
             row = db.execute(
                 '''
-                    SELECT *
-                    FROM tasks
+                    SELECT * FROM tasks
                     WHERE id = ?
                 ''', (task_id,)
             ).fetchone()
@@ -206,7 +205,6 @@ class Task:
             else:
                 return False
 
-
     @staticmethod
     def edit_status(task_id, status):
         if not status:
@@ -215,8 +213,7 @@ class Task:
         with DB() as db:
             row = db.execute(
                 '''
-                    SELECT *
-                    FROM tasks
+                    SELECT * FROM tasks
                     WHERE id = ?
                 ''', (task_id,)
             ).fetchone()
@@ -232,7 +229,6 @@ class Task:
 
             else:
                 return False
-
 
     def delete(self):
         with DB() as db:
