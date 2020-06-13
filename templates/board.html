@@ -33,68 +33,75 @@
 
 	<div class="board-container">
 		<div class="to-do board-sec">
-			<div class="card">
-				<h2 class="heading">Heading</h2>
-				<div class="wrapper2">
-					<div class="wrapper">
-						<h5 class="heading class">classed as <i>class</i></h5>
-						<h5 class="heading desc">assigned to <i>user</i></h5>
-					</div>
+			<h3>To Do</h3>
+			{% if to_do %}
+				{% for to_do_task in to_do %}
+					<div class="card">
+						<h2 class="heading">{{ to_do_task[0] }}</h2>
+						<div class="wrapper2">
+							<div class="wrapper">
+								<h5 class="heading class">typed as <i>{{ to_do_task[2] }}</i></h5>
+								<h5 class="heading desc">assigned to <i>{{ current_user.username }}</i></h5>
+							</div>
 
-					<div class="button">
-						<button type="button" name="button"><img src="../static/images/edit.png"></button>
+							<div class="button">
+								<button type="button" name="button"><img src="../static/images/edit.png"></button>
+							</div>
+						</div>
+						<p>{{ to_do_task[1] }}</p>
 					</div>
-				</div>
-				<p>desc</p>
-			</div>
-			<div class="card">
-				<h2 class="heading">heading</h2>
-				<div class="wrapper2">
-					<div class="wrapper">
-						<h5 class="heading class">classed as <i>class</i></h5>
-						<h5 class="heading desc">assigned to <i>user</i></h5>
-					</div>
-
-					<div class="button">
-						<button type="button" name="button"><img src="../static/images/edit.png"></button>
-					</div>
-				</div>
-				<p>desc</p>
-			</div>
+				{% endfor %}
+			{% else %}
+				<h6>Empty!</h6>
+			{% endif %}
 		</div>
 
 		<div class="in-progress board-sec">
-			<div class="card">
-				<h2 class="heading">long heading</h2>
-				<div class="wrapper2">
-					<div class="wrapper">
-						<h5 class="heading class">classed as <i>class</i></h5>
-						<h5 class="heading desc">assigned to <i>user</i></h5>
-					</div>
+			<h3>Doing</h3>
+			{% if doing %}
+				{% for doing_task in doing %}
+					<div class="card">
+						<h2 class="heading">{{ doing_task[0] }}</h2>
+						<div class="wrapper2">
+							<div class="wrapper">
+								<h5 class="heading class">typed as <i>{{ doing_task[2] }}</i></h5>
+								<h5 class="heading desc">assigned to <i>{{ current_user.username }}</i></h5>
+							</div>
 
-					<div class="button">
-						<button type="button" name="button"><img src="../static/images/edit.png"></button>
+							<div class="button">
+								<button type="button" name="button"><img src="../static/images/edit.png"></button>
+							</div>
+						</div>
+						<p>{{ doing_task[1] }}</p>
 					</div>
-				</div>
-				<p>a reallllllly long desc to break things up lorem  reallllllly long desc to break things up lorem  reallllllly long desc to break things up Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione laborum molestiae corrupti rem alias unde id velit harum dicta nulla minus libero omnis reiciendis, maiores cumque debitis, ea minima? Enim.</p>
-			</div>
+				{% endfor %}
+			{% else %}
+				<h6>Empty!</h6>
+			{% endif %}
 		</div>
 
 		<div class="done board-sec">
-			<div class="card">
-				<h2 class="heading">reaaaaaaaalllly long test heading purposed for big tasks</h2>
-				<div class="wrapper2">
-					<div class="wrapper">
-						<h5 class="heading class">classed as <i>class</i></h5>
-						<h5 class="heading desc">assigned to <i>user</i></h5>
-					</div>
+			<h3>Done</h3>
+			{% if done %}
+				{% for done_task in done %}
+					<div class="card">
+						<h2 class="heading">{{ done_task[0] }}</h2>
+						<div class="wrapper2">
+							<div class="wrapper">
+								<h5 class="heading class">typed as <i>{{ done_task[2] }}</i></h5>
+								<h5 class="heading desc">assigned to <i>{{ current_user.username }}</i></h5>
+							</div>
 
-					<div class="button">
-						<button type="button" name="button"><img src="../static/images/edit.png"></button>
+							<div class="button">
+								<button type="button" name="button"><img src="../static/images/edit.png"></button>
+							</div>
+						</div>
+						<p>{{ done_task[1] }}</p>
 					</div>
-				</div>
-				<p>desc</p>
-			</div>
+				{% endfor %}
+			{% else %}
+				<h6>Empty!</h6>
+			{% endif %}
 		</div>
 
 	</div>

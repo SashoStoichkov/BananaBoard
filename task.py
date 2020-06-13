@@ -3,11 +3,11 @@ from database import DB
 
 class Task:
     def __init__(self, title, content, task_status_id, task_type_id):
-        this.id = None
-        this.title = title
-        this.content = content
-        this.task_status_id = task_status_id
-        this.task_type_id = task_type_id
+        self.id = None
+        self.title = title
+        self.content = content
+        self.task_status_id = task_status_id
+        self.task_type_id = task_type_id
 
     def create(self, user_id):
         with DB() as db:
@@ -28,13 +28,13 @@ class Task:
                     SELECT id FROM tasks
                     WHERE tasks.title = ?
                 ''', (self.title,)
-            ).fetchone()
+            ).fetchone()[0]
 
             db.execute(
                 '''
                     INSERT INTO user_tasks
                     VALUES (?, ?)
-                ''', (user_id, id)
+                ''', (str(user_id), str(id))
             )
 
             return self
@@ -47,13 +47,13 @@ class Task:
                     SELECT tasks.title, tasks.content, task_types.title
                     FROM tasks
                         INNER JOIN task_types
-                            ON tasks.task_type_id = task_type.id
+                            ON tasks.task_type_id = task_types.id
                         INNER JOIN user_tasks
                             ON tasks.id = user_tasks.task_id
                         INNER JOIN users
                             ON user_tasks.user_id = users.id
                     WHERE users.id = ?
-                ''', (user_id,)
+                ''', (str(user_id),)
             ).fetchall()
 
     @staticmethod
@@ -63,8 +63,8 @@ class Task:
                 '''
                     SELECT COUNT(user_tasks.task_id) FROM user_tasks
                     WHERE users.id = ?
-                ''', (user_id,)
-            ).fetchone()
+                ''', (str(user_id),)
+            ).fetchone()[0]
 
     @staticmethod
     def display_by_status(user_id, status_id):
@@ -74,13 +74,13 @@ class Task:
                     SELECT tasks.title, tasks.content, task_types.title
                     FROM tasks
                         INNER JOIN task_types
-                            ON tasks.task_type_id = task_type.id
+                            ON tasks.task_type_id = task_types.id
                         INNER JOIN user_tasks
                             ON tasks.id = user_tasks.task_id
                         INNER JOIN users
                             ON user_tasks.user_id = users.id
                     WHERE users.id = ? AND tasks.task_status_id = ?
-                ''', (user_id, status_id)
+                ''', (str(user_id), str(status_id))
             ).fetchall()
 
     @staticmethod
@@ -88,16 +88,16 @@ class Task:
         with DB() as db:
             return db.execute(
                 '''
-                    SELECT tasks.title, tasks.content, task_types.title
+                    SELECT tasks.title, tasks.content, task_types.title, tasks.id
                     FROM tasks
                         INNER JOIN task_types
-                            ON tasks.task_type_id = task_type.id
+                            ON tasks.task_type_id = task_types.id
                         INNER JOIN user_tasks
                             ON tasks.id = user_tasks.task_id
                         INNER JOIN users
                             ON user_tasks.user_id = users.id
                     WHERE users.id = ? AND task_types.title = ?
-                ''', (user_id, task_type)
+                ''', (str(user_id), task_type)
             ).fetchall()
 
     @staticmethod
@@ -114,7 +114,7 @@ class Task:
                         INNER JOIN user_tasks
                             ON tasks.id = user_tasks.task_id
                     WHERE user_tasks.user_id = ? AND tasks.title = ?
-                ''', (user_id, title)
+                ''', (str(user_id), title)
             ).fetchone()
 
             if row:
@@ -132,7 +132,7 @@ class Task:
                 '''
                     SELECT * FROM tasks
                     WHERE id = ?
-                ''', (task_id,)
+                ''', (str(task_id),)
             ).fetchone()
 
             if row:
@@ -141,7 +141,7 @@ class Task:
                         UPDATE tasks
                         SET content = ?
                         WHERE id = ?
-                    ''', (content, task_id)
+                    ''', (content, str(task_id))
                 )
 
             else:
@@ -157,7 +157,7 @@ class Task:
                 '''
                     SELECT * FROM tasks
                     WHERE id = ?
-                ''', (task_id,)
+                ''', (str(task_id),)
             ).fetchone()
 
             if row:
@@ -166,7 +166,7 @@ class Task:
                         UPDATE tasks
                         SET title = ?
                         WHERE id = ?
-                    ''', (title, task_id)
+                    ''', (title, str(task_id))
                 )
 
             else:
@@ -182,7 +182,7 @@ class Task:
                 '''
                     SELECT * FROM tasks
                     WHERE id = ?
-                ''', (task_id,)
+                ''', (str(task_id),)
             ).fetchone()
 
             if row:
@@ -191,7 +191,7 @@ class Task:
                         UPDATE tasks
                         SET task_type_id = ?
                         WHERE id = ?
-                    ''', (type_id, task_id)
+                    ''', (str(type_id), str(task_id))
                 )
 
             else:
@@ -207,7 +207,7 @@ class Task:
                 '''
                     SELECT * FROM tasks
                     WHERE id = ?
-                ''', (task_id,)
+                ''', (str(task_id),)
             ).fetchone()
 
             if row:
@@ -216,7 +216,7 @@ class Task:
                         UPDATE tasks
                         SET task_status_id = ?
                         WHERE id = ?
-                    ''', (status_id, task_id)
+                    ''', (str(status_id), str(task_id))
                 )
 
             else:

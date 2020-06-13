@@ -92,7 +92,15 @@ def register():
 @app.route('/board', methods=['GET', 'POST'])
 @login_required
 def board():
-    return render_template('board.html', current_user=current_user)
+    to_do = Task.display_by_status(current_user.get_id(), '1')
+    doing = Task.display_by_status(current_user.get_id(), '2')
+    done = Task.display_by_status(current_user.get_id(), '3')
+
+    return render_template(
+        'board.html',
+        current_user=current_user,
+        to_do=to_do, doing=doing, done=done
+    )
 
 
 @app.route('/edit/<int:task_id>', methods=['GET', 'POST'])
