@@ -88,7 +88,8 @@ class Task:
         with DB() as db:
             return db.execute(
                 '''
-                    SELECT tasks.title, tasks.content, task_types.title, tasks.id
+                    SELECT tasks.title, tasks.content,
+                        task_types.title, tasks.id
                     FROM tasks
                         INNER JOIN task_types
                             ON tasks.task_type_id = task_types.id
