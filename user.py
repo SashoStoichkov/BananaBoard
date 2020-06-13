@@ -8,6 +8,16 @@ class User:
         self.username = username
         self.email = email
         self.password = None
+        self.authenticated = False
+
+    def is_anonymous(self):
+        return False
+
+    def is_authenticated(self):
+        return self.authenticated
+
+    def is_active(self):
+        return True
 
     def create(self, password):
         with DB() as db:
@@ -27,17 +37,45 @@ class User:
         return hashlib.sha256(password.encode('utf-8')).hexdigest()
 
     @staticmethod
-    def verify_password(password, email):
+    def verify_password(password, username):
         with DB() as db:
             passwd = db.execute(
                 '''
                     SELECT password FROM users
-                    WHERE email = ?
-                ''', (email,)
+                    WHERE name = ?
+                ''', (username,)
             ).fetchone()[0]
 
         return passwd ==\
             hashlib.sha256(password.encode('utf-8')).hexdigest()
+
+    def get_id(self):
+        with DB() as db:
+            return db.execute(
+                '''
+                    SELECT id FROM users
+                    WHERE name = ?
+                ''', (self.username,)
+            ).fetchone()[0]
+
+    @staticmethod
+    def get_id_by_username(username):
+        with DB() as db:
+            row = db.execute(
+                '''
+                    SELECT * FROM users
+                    WHERE name = ?
+                ''', (username,)
+            ).fetchone()
+
+            if row:
+                with DB() as db:
+                    return db.execute(
+                        '''
+                            SELECT id FROM users
+                            WHERE name = ?
+                        ''', (username,)
+                    ).fetchone()[0]
 
     @staticmethod
     def get_username_by_id(id):
@@ -59,7 +97,7 @@ class User:
                 '''
                     SELECT name, email FROM users
                     WHERE id = ?
-                ''', (user_id,)
+                ''', (str(user_id),)
             ).fetchone()
 
             if row:

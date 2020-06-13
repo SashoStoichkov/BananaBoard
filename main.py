@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request, redirect, flash
-# from flask_login import LoginManager
+from flask_login import LoginManager, login_required,\
+                        login_user, logout_user, current_user
 
 from user import User
-# from task import Task
+from task import Task
 from task_type import TaskType
 
 # Create Flask App
@@ -13,14 +14,26 @@ app.config['ENV'] = True
 app.config['DEBUG'] = True
 
 
-# # LoginManager
-# login_manager = LoginManager()
-# login_manager.init_app(app)
+# LoginManager
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = '/login'
 
 
-# @login_manager.user_loader
-# def load_user(user_id):
-#     return User.get_user_by_id(user_id)
+@login_manager.user_loader
+def load_user(user_id):
+    return User.get_user_by_id(user_id)
+
+
+def sign_in_user(user_id, password):
+    user = load_user(user_id)
+
+    if user and User.verify_password(password, user.username):
+        user.authenticated = True
+        login_user(user, remember=True)
+        return user
+    else:
+        return False
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -31,10 +44,20 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        print(request.form['username'])
-        print(request.form['password'])
+        username = request.form['username']
+        password = request.form['password']
 
-        return redirect('/')
+        u_id = User.get_id_by_username(username)
+
+        if u_id:
+            user = sign_in_user(u_id, password)
+
+            if user and user.is_authenticated():
+                return redirect('/board')
+            else:
+                return redirect('/login')
+        else:
+            return redirect('/login')
     else:
         return render_template('login.html')
 
@@ -67,13 +90,22 @@ def register():
 
 
 @app.route('/board', methods=['GET', 'POST'])
+@login_required
 def board():
-    return render_template('board.html')
+    return render_template('board.html', current_user=current_user)
 
 
-@app.route('/edit', methods=['GET', 'POST'])
+@app.route('/edit/<int:task_id>', methods=['GET', 'POST'])
+@login_required
 def edit():
     return render_template('edit.html')
+
+
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect('/')
 
 
 if __name__ == '__main__':

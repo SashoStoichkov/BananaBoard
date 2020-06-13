@@ -4,21 +4,30 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>BananaBoard</title>
+	<title>BananaBoard - {{ current_user.username }}</title>
 	<!-- <link rel="icon" href=""> -->
 	<link rel="stylesheet" href="../static/css/board.css">
 
 </head>
 <body>
 	<header>
-		<h1>BananaBoard</h1>
+		<h1>BananaBoard | User: {{ current_user.username }}</h1>
 		<div class="header-route">
-			<div class="login button">
-				<button type="button" name="button" >Login</button>
-			</div>
-			<div class="register button">
-				<button type="button"  name="button">Register</button>
-			</div>
+			{% if current_user.is_authenticated %}
+				<div class="button">
+					<button type="button" name="button">Create Task!</button>
+				</div>
+				<div class="button">
+					<button onclick="location.href = '/logout';" type="button" name="button">Logout</button>
+				</div>
+			{% else %}
+				<div class="login button">
+					<button onclick="location.href = '/login';" type="button" name="button">Login</button>
+				</div>
+				<div class="register button">
+					<button onclick="location.href = '/register';" type="button" name="button">Register</button>
+				</div>
+			{% endif %}
 		</div>
 	</header>
 
