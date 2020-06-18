@@ -55,8 +55,10 @@ def login():
             if user and user.is_authenticated():
                 return redirect('/board')
             else:
+                flash("User not authenticated")
                 return redirect('/login')
         else:
+            flash("User doesn't exist")
             return redirect('/login')
     else:
         return render_template('login.html')
@@ -77,14 +79,14 @@ def register():
                     User(username, email).create(password)
                     return redirect('/login')
                 else:
-                    print('Both passwords don\'t match!')
+                    flash('Both passwords don\'t match!')
                     return redirect('/register')
             else:
-                print('User with the same username already exists!')
-                return redirect('/login')
+                flash('User with the same username already exists!')
+                return redirect('/register')
         else:
-            print('User with the same email already exists!')
-            return redirect('/login')
+            flash('User with the same email already exists!')
+            return redirect('/register')
     else:
         return render_template('register.html')
 
@@ -116,7 +118,7 @@ def create():
 
         task = Task.select_by_title(user_id, title)
         if task:
-            print('task with same title already exists')
+            flash('task with same title already exists')
             return redirect('/create')
 
         if title == '':
@@ -136,9 +138,11 @@ def create_type():
     if request.method == 'POST':
         title = request.form['title']
 
-        # if exists:
-        #     print('task type already exists')
-        #     return redirect('/create-type')
+        task_type = TaskType.get_task_type_by_title(title)
+        if task_type:
+            flash('task type already exists')
+            return redirect('/create-type')
+
 
         TaskType(title).create()
         return redirect('/board')

@@ -60,13 +60,13 @@ header > div {
 
 .button {
 	/* padding: 0 1em; */
-	width: 4em;
+	width: 6em;
 
 	text-align: center;
 }
 
 .button > button {
-	width: 5em;
+	width: 7em;
 	height: 2.7em;
 	font-size: 0.75em;
 	font-family: 'Libre Baskerville', serif;
@@ -138,4 +138,8 @@ header > div {
 
 .input:focus {
 	border: 1.5px solid var(--carolina-blue);;
+}
+
+.red {
+	color: red;
 }

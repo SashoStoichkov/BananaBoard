@@ -28,6 +28,19 @@ class TaskType:
             ).fetchall()
 
     @staticmethod
+    def get_task_type_by_title(title):
+        if not title:
+            return None
+
+        with DB() as db:
+            return db.execute(
+                '''
+                    SELECT * FROM task_types
+                    WHERE title = ?
+                ''', (title,)
+            ).fetchone()
+
+    @staticmethod
     def get_task_type_title_by_id(task_type_id):
         if not task_type_id:
             return None

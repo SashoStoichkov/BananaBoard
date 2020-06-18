@@ -59,5 +59,12 @@ body {
 }
 
 .input:first-child {
-	margin: 2.45em;
+	margin: 2em;
+	height: 2.5em;
+	margin-bottom: 1em;
+}
+
+.input {
+	margin: 1.5em 0;
+	height: 5.5em;
 }
