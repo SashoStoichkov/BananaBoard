@@ -78,7 +78,7 @@ i {
 	/* color: black; */
 }
 
-.input {
+.input, select {
 	border-radius: 4px;
 	width: 18em;
 	height: 3em;

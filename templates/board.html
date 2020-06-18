@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>BananaBoard - {{ current_user.username }}</title>
+	<title>{{ current_user.username }}'s Board</title>
 	<!-- <link rel="icon" href=""> -->
 	<link rel="stylesheet" href="../static/css/board.css">
 
@@ -15,7 +15,7 @@
 		<div class="header-route">
 			{% if current_user.is_authenticated %}
 				<div class="button">
-					<button type="button" name="button">Create Task!</button>
+					<button onclick="location.href = '/create';" type="button" name="button">Create Task!</button>
 				</div>
 				<div class="button">
 					<button onclick="location.href = '/logout';" type="button" name="button">Logout</button>
@@ -45,7 +45,7 @@
 							</div>
 
 							<div class="button">
-								<button type="button" name="button"><img src="../static/images/edit.png"></button>
+								<button onclick="location.href = '/edit/{{ to_do_task[3] }}';" type="button" name="button"><img src="../static/images/edit.png"></button>
 							</div>
 						</div>
 						<p>{{ to_do_task[1] }}</p>
@@ -69,7 +69,7 @@
 							</div>
 
 							<div class="button">
-								<button type="button" name="button"><img src="../static/images/edit.png"></button>
+								<button onclick="location.href = '/edit/{{ doing_task[3] }}';" type="button" name="button"><img src="../static/images/edit.png"></button>
 							</div>
 						</div>
 						<p>{{ doing_task[1] }}</p>
@@ -93,7 +93,7 @@
 							</div>
 
 							<div class="button">
-								<button type="button" name="button"><img src="../static/images/edit.png"></button>
+								<button onclick="location.href = '/edit/{{ done_task[3] }}';" type="button" name="button"><img src="../static/images/edit.png"></button>
 							</div>
 						</div>
 						<p>{{ done_task[1] }}</p>

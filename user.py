@@ -84,7 +84,7 @@ class User:
                 '''
                     SELECT name FROM users
                     WHERE id = ?
-                ''', (id,)
+                ''', (str(id),)
             ).fetchone()[0]
 
     @staticmethod

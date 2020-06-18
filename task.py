@@ -40,6 +40,27 @@ class Task:
             return self
 
     @staticmethod
+    def get_task_by_id(task_id):
+        if not task_id:
+            return None
+
+        with DB() as db:
+            row = db.execute(
+                '''
+                    SELECT tasks.title, tasks.content, task_types.title
+                    FROM tasks
+                        INNER JOIN task_types
+                            ON tasks.task_type_id = task_types.id
+                    WHERE tasks.id = ?
+                ''', (str(task_id),)
+            ).fetchone()
+
+            if row:
+                return row
+
+            return False
+
+    @staticmethod
     def display_all(user_id):
         with DB() as db:
             return db.execute(
@@ -71,7 +92,8 @@ class Task:
         with DB() as db:
             return db.execute(
                 '''
-                    SELECT tasks.title, tasks.content, task_types.title
+                    SELECT tasks.title, tasks.content,
+                        task_types.title, tasks.id
                     FROM tasks
                         INNER JOIN task_types
                             ON tasks.task_type_id = task_types.id
@@ -223,13 +245,19 @@ class Task:
             else:
                 return False
 
-    def delete(self):
+    @staticmethod
+    def delete(task_id):
         with DB() as db:
             db.execute(
                 '''
                     DELETE FROM tasks
-                    WHERE title = ?
-                ''', (self.title,)
+                    WHERE id = ?
+                ''', (str(task_id),)
             )
 
-            return self
+            db.execute(
+                '''
+                    DELETE FROM user_tasks
+                    WHERE task_id = ?
+                ''', (str(task_id),)
+            )

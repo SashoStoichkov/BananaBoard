@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>BananaBoard - Create Task</title>
+	<!-- <link rel="icon" href=""> -->
+
+	<link rel="stylesheet" href="../static/css/board.css";>
+	<link rel="stylesheet" href="../static/css/edit.css";>
+	<link rel="stylesheet" href="../static/css/login.css";>
+
+</head>
+<body>
+	<header>
+		<h1>BananaBoard</h1>
+		<div class="header-route">
+			<div class="button">
+				<button onclick="location.href = '/board';" type="button" name="button">Go to Board</button>
+			</div>
+			<div class="button">
+				<button onclick="location.href = '/logout';" type="button" name="button">Logout</button>
+			</div>
+		</div>
+	</header>
+
+	<div class="board-container">
+		<div class="board-sec">
+			<form action="{{ url_for('create') }}" class="card card2" method="POST">
+				<h3>Create Task</h3>
+
+				<input class="input" placeholder="title" type="text" name="title" required>
+				<input class="input" placeholder="description" type="text" name="description" required>
+				<input class="input" placeholder="type" type="text" name="type" required>
+				<select name="status" required>
+					<option value="">Select Status</option>
+					<option value="1">To Do</option>
+					<option value="2">Doing</option>
+					<option value="3">Done</option>
+				</select>
+
+				<div class="wrapper2">
+					<div class="buttons">
+						<div class="button login2">
+							<button type="submit" name="button"><img src="../static/images/submit.png"></button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<footer>
+
+	</footer>
+</body>
+</html>

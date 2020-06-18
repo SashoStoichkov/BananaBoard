@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, flash
+from flask import Flask, render_template, request, redirect, flash, url_for
 from flask_login import LoginManager, login_required,\
                         login_user, logout_user, current_user
 
@@ -103,10 +103,60 @@ def board():
     )
 
 
-@app.route('/edit/<int:task_id>', methods=['GET', 'POST'])
+@app.route('/create', methods=['GET', 'POST'])
 @login_required
-def edit():
-    return render_template('edit.html')
+def create():
+    if request.method == 'POST':
+        title = request.form['title']
+        str_type = request.form['type']
+        status = request.form['status']
+        description = request.form['description']
+
+        user_id = current_user.get_id()
+
+        task = Task.select_by_title(user_id, title)
+        if task:
+            print('task with same title already exists')
+            return redirect('/create')
+
+        Task(title, description, status, str_type).create(user_id)
+        return redirect('/board')
+    else:
+        return render_template('create.html')
+
+
+@app.route('/edit/<string:task_id>', methods=['GET', 'POST'])
+@login_required
+def edit(task_id):
+    if request.method == 'POST':
+        title = request.form['title']
+        str_type = request.form['type']
+        status = request.form['status']
+        description = request.form['description']
+
+        if title != '':
+            Task.edit_title(task_id, title)
+
+        if str_type != '':
+            Task.edit_type(task_id, str_type)
+
+        if status != '':
+            Task.edit_status(task_id, status)
+
+        if description != '':
+            Task.edit_content(task_id, description)
+
+        return redirect('/board')
+    else:
+        task = Task.get_task_by_id(task_id)
+        return render_template('edit.html', task=task, task_id=task_id)
+
+
+@app.route('/delete/<string:task_id>', methods=['POST'])
+@login_required
+def delete(task_id):
+    Task.delete(task_id)
+    return redirect('/board')
 
 
 @app.route("/logout")

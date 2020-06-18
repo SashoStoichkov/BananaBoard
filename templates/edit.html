@@ -4,64 +4,83 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>BananaBoard</title>
+	<title>BananaBoard - Edit</title>
 	<!-- <link rel="icon" href=""> -->
 
 	<link rel="stylesheet" href="../static/css/board.css";>
-<link rel="stylesheet" href="../static/css/edit.css";>
+	<link rel="stylesheet" href="../static/css/edit.css";>
 
 </head>
 <body>
 	<header>
-		<h1>BananaBoard</h1>
+		<h1>BananaBoard | Hello, {{ current_user.username }}!</h1>
 		<div class="header-route">
-			<div class="login button">
-				<button type="button" name="button">Login</button>
-			</div>
-			<div class="register button">
-				<button type="button"  name="button">Register</button>
-			</div>
+			{% if current_user.is_authenticated %}
+				<div class="button">
+					<button onclick="location.href = '/create';" type="button" name="button">Create Task!</button>
+				</div>
+				<div class="button">
+					<button onclick="location.href = '/logout';" type="button" name="button">Logout</button>
+				</div>
+			{% else %}
+				<div class="login button">
+					<button onclick="location.href = '/login';" type="button" name="button">Login</button>
+				</div>
+				<div class="register button">
+					<button onclick="location.href = '/register';" type="button" name="button">Register</button>
+				</div>
+			{% endif %}
 		</div>
 	</header>
 
 	<div class="board-container">
 		<div class="board-sec">
-			<div class="card">
-				<h2 class="heading">Heading</h2>
-				<div class="wrapper2">
-					<div class="wrapper">
-						<h5 class="heading class">classed as <i>class</i></h5>
-						<h5 class="heading desc">assigned to <i>user</i></h5>
-					</div>
+			{% if task %}
+				<div class="card">
+					<h2 class="heading">{{ task[0] }}</h2>
+					<div class="wrapper2">
+						<div class="wrapper">
+							<h5 class="heading class">typed as <i>{{ task[2] }}</i></h5>
+							<h5 class="heading desc">assigned to <i>{{ current_user.username }}</i></h5>
+						</div>
 
-					<div class="button">
-						<button type="button" name="button"><img src="../static/images/edit.png"></button>
+						<div class="button">
+							<button type="button" name="button"><img src="../static/images/edit.png"></button>
+						</div>
 					</div>
+					<p>{{ task[1] }}</p>
 				</div>
-				<p>desc</p>
-			</div>
+			{% else %}
+				<h4>None</h4>
+			{% endif %}
 		</div>
+
 		<div class="board-sec">
-			<div class="card card2">
-				<input class="input" placeholder="title" type="text">
+			<form class="card card2" method="POST">
+				<input class="input" placeholder="title" type="text" name="title">
 				<div class="wrapper2">
 					<div class="wrapper">
 						<p></p>
-						<input class="input" placeholder="class" type="text">
-						<input class="input" placeholder="user" type="text">
-							<input class="input" placeholder="description" type="text">
+						<input class="input" placeholder="type" type="text" name="type">
+						<select name="status">
+							<option value="">Select Status</option>
+							<option value="1">To Do</option>
+							<option value="2">Doing</option>
+							<option value="3">Done</option>
+						</select>
+						<input class="input" placeholder="description" type="text" name="description">
 					</div>
 
 					<div class="buttons">
 						<div class="button">
-							<button type="button" name="button"><img src="../static/images/edit.png"></button>
+							<button formaction="/edit/{{ task_id }}" title="Save changes" type="submit" name="button"><img src="../static/images/submit.png"></button>
 						</div>
 						<div class="button">
-							<button type="button" name="button"><img src="../static/images/edit.png"></button>
+							<button formaction="/delete/{{ task_id }}" title="Delete" name="button"><img src="../static/images/delete.png"></button>
 						</div>
 					</div>
 				</div>
-			</div>
+			</form>
 		</div>
 	</div>
 
