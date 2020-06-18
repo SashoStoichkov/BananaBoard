@@ -11,7 +11,7 @@
 * landing page
 * login/register
 * board
-* card_edit/delete
+* card_edit/delete/create
 
 ## Функционалност
 * CRUD operations (4) c+ r+ u+ d+
