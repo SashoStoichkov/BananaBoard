@@ -112,15 +112,15 @@ def create():
         status = request.form['status']
         description = request.form['description']
 
-        if str_type == '0':
-            return redirect('/create-type')
-
         user_id = current_user.get_id()
 
         task = Task.select_by_title(user_id, title)
         if task:
             print('task with same title already exists')
             return redirect('/create')
+
+        if title == '':
+            return redirect('/create-type')
 
         Task(title, description, status, str_type).create(user_id)
         return redirect('/board')

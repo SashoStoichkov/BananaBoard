@@ -27,7 +27,7 @@
 
 	<div class="board-container">
 		<div class="board-sec">
-			<form class="card card2" method="POST">
+			<form action="{{ url_for('create') }}" class="card card2" method="POST">
 				<h3>Create Task</h3>
 
 				<input class="input" placeholder="title" type="text" name="title" required>
@@ -41,12 +41,6 @@
 
 				<br><br>
 
-				<!-- <div class="buttons">
-					<div class="button">
-						<button onclick="location.href = '/create-type';" type="submit" name="button" formnovalidate><img src="../static/images/submit.png"></button>
-					</div>
-				</div> -->
-
 				<select name="status" required>
 					<option value="">Select Status</option>
 					<option value="1">To Do</option>
@@ -57,7 +51,10 @@
 				<div class="wrapper2">
 					<div class="buttons">
 						<div class="button">
-							<button formaction="{{ url_for('create') }}" type="submit" name="button"><img src="../static/images/submit.png"></button>
+							<button type="submit" name="button"><img src="../static/images/submit.png"></button>
+						</div>
+						<div class="button">
+							<button name="button" formnovalidate><img src="../static/images/submit.png"></button>
 						</div>
 					</div>
 				</div>
