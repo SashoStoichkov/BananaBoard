@@ -106,7 +106,7 @@ class Task:
             ).fetchall()
 
     @staticmethod
-    def display_by_type(user_id, task_type):
+    def display_by_type(user_id, task_type_id, status_id):
         with DB() as db:
             return db.execute(
                 '''
@@ -119,8 +119,8 @@ class Task:
                             ON tasks.id = user_tasks.task_id
                         INNER JOIN users
                             ON user_tasks.user_id = users.id
-                    WHERE users.id = ? AND task_types.title = ?
-                ''', (str(user_id), task_type)
+                    WHERE users.id = ? AND task_types.id = ? AND tasks.task_status_id = ?
+                ''', (str(user_id), str(task_type_id), str(status_id))
             ).fetchall()
 
     @staticmethod

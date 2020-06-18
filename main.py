@@ -55,10 +55,10 @@ def login():
             if user and user.is_authenticated():
                 return redirect('/board')
             else:
-                flash("User not authenticated")
+                flash("User not authenticated!")
                 return redirect('/login')
         else:
-            flash("User doesn't exist")
+            flash("User doesn't exist!")
             return redirect('/login')
     else:
         return render_template('login.html')
@@ -94,15 +94,33 @@ def register():
 @app.route('/board', methods=['GET', 'POST'])
 @login_required
 def board():
-    to_do = Task.display_by_status(current_user.get_id(), '1')
-    doing = Task.display_by_status(current_user.get_id(), '2')
-    done = Task.display_by_status(current_user.get_id(), '3')
 
-    return render_template(
-        'board.html',
-        current_user=current_user,
-        to_do=to_do, doing=doing, done=done
-    )
+
+    if request.method == 'POST':
+        type_id = request.form['type']
+        to_do = Task.display_by_type(current_user.get_id(), type_id, '1')
+        doing = Task.display_by_type(current_user.get_id(), type_id, '2')
+        done = Task.display_by_type(current_user.get_id(), type_id, '3')
+        task_types = TaskType.get_all_types()
+
+        return render_template(
+            'board.html',
+            current_user=current_user,
+            to_do=to_do, doing=doing, done=done, task_types=task_types
+        )
+
+    else:
+        to_do = Task.display_by_status(current_user.get_id(), '1')
+        doing = Task.display_by_status(current_user.get_id(), '2')
+        done = Task.display_by_status(current_user.get_id(), '3')
+        task_types = TaskType.get_all_types()
+
+        return render_template(
+            'board.html',
+            current_user=current_user,
+            to_do=to_do, doing=doing, done=done, task_types=task_types
+        )
+
 
 
 @app.route('/create', methods=['GET', 'POST'])
@@ -118,7 +136,7 @@ def create():
 
         task = Task.select_by_title(user_id, title)
         if task:
-            flash('task with same title already exists')
+            flash('Task with same title already exists!')
             return redirect('/create')
 
         if title == '':
@@ -140,7 +158,7 @@ def create_type():
 
         task_type = TaskType.get_task_type_by_title(title)
         if task_type:
-            flash('task type already exists')
+            flash('Task type already exists!')
             return redirect('/create-type')
 
 

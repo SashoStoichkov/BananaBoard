@@ -142,4 +142,11 @@ header > div {
 
 .red {
 	color: red;
+
+}
+
+.drop {
+	position:fixed ;
+	right: 1em;
+	bottom: 1em;
 }
