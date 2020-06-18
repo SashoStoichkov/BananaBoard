@@ -95,32 +95,33 @@ def register():
 @login_required
 def board():
 
+    to_do = Task.display_by_status(current_user.get_id(), '1')
+    doing = Task.display_by_status(current_user.get_id(), '2')
+    done = Task.display_by_status(current_user.get_id(), '3')
+    task_types = TaskType.get_all_types()
 
-    if request.method == 'POST':
-        type_id = request.form['type']
-        to_do = Task.display_by_type(current_user.get_id(), type_id, '1')
-        doing = Task.display_by_type(current_user.get_id(), type_id, '2')
-        done = Task.display_by_type(current_user.get_id(), type_id, '3')
-        task_types = TaskType.get_all_types()
+    return render_template(
+        'board.html',
+        current_user=current_user,
+        to_do=to_do, doing=doing, done=done, task_types=task_types
+    )
 
-        return render_template(
-            'board.html',
-            current_user=current_user,
-            to_do=to_do, doing=doing, done=done, task_types=task_types
-        )
 
-    else:
-        to_do = Task.display_by_status(current_user.get_id(), '1')
-        doing = Task.display_by_status(current_user.get_id(), '2')
-        done = Task.display_by_status(current_user.get_id(), '3')
-        task_types = TaskType.get_all_types()
+@app.route('/board-selected', methods=['GET', 'POST'])
+@login_required
+def board_selected():
 
-        return render_template(
-            'board.html',
-            current_user=current_user,
-            to_do=to_do, doing=doing, done=done, task_types=task_types
-        )
+    type_id = request.form['type']
+    to_do = Task.display_by_type(current_user.get_id(), type_id, '1')
+    doing = Task.display_by_type(current_user.get_id(), type_id, '2')
+    done = Task.display_by_type(current_user.get_id(), type_id, '3')
+    task_types = TaskType.get_all_types()
 
+    return render_template(
+        'board-selected.html',
+        current_user=current_user,
+        to_do=to_do, doing=doing, done=done, task_types=task_types
+    )
 
 
 @app.route('/create', methods=['GET', 'POST'])
