@@ -19,6 +19,15 @@ class TaskType:
             return self
 
     @staticmethod
+    def get_all_types():
+        with DB() as db:
+            return db.execute(
+                '''
+                    SELECT * FROM task_types
+                '''
+            ).fetchall()
+
+    @staticmethod
     def get_task_type_title_by_id(task_type_id):
         if not task_type_id:
             return None
@@ -28,7 +37,7 @@ class TaskType:
                 '''
                     SELECT title FROM task_types
                     WHERE id = ?
-                ''', (task_type_id,)
+                ''', (str(task_type_id),)
             ).fetchone()[0]
 
     @staticmethod
@@ -41,7 +50,7 @@ class TaskType:
                 '''
                     SELECT * FROM task_types
                     WHERE id = ?
-                ''', (task_type_id,)
+                ''', (str(task_type_id),)
             ).fetchone()
 
             if row:
@@ -50,7 +59,7 @@ class TaskType:
                         UPDATE task_types
                         SET title = ?
                         WHERE id = ?
-                    ''', (new_title, task_type_id,)
+                    ''', (new_title, str(task_type_id),)
                 )
 
             else:

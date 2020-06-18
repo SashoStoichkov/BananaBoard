@@ -112,6 +112,9 @@ def create():
         status = request.form['status']
         description = request.form['description']
 
+        if str_type == '0':
+            return redirect('/create-type')
+
         user_id = current_user.get_id()
 
         task = Task.select_by_title(user_id, title)
@@ -122,7 +125,25 @@ def create():
         Task(title, description, status, str_type).create(user_id)
         return redirect('/board')
     else:
-        return render_template('create.html')
+        task_types = TaskType.get_all_types()
+
+        return render_template('create.html', task_types=task_types)
+
+
+@app.route('/create-type', methods=['GET', 'POST'])
+@login_required
+def create_type():
+    if request.method == 'POST':
+        title = request.form['title']
+
+        # if exists:
+        #     print('task type already exists')
+        #     return redirect('/create-type')
+
+        TaskType(title).create()
+        return redirect('/board')
+    else:
+        return render_template('create_type.html')
 
 
 @app.route('/edit/<string:task_id>', methods=['GET', 'POST'])
@@ -133,6 +154,9 @@ def edit(task_id):
         str_type = request.form['type']
         status = request.form['status']
         description = request.form['description']
+
+        if str_type == '0':
+            return redirect('/create-type')
 
         if title != '':
             Task.edit_title(task_id, title)
@@ -149,7 +173,11 @@ def edit(task_id):
         return redirect('/board')
     else:
         task = Task.get_task_by_id(task_id)
-        return render_template('edit.html', task=task, task_id=task_id)
+        task_types = TaskType.get_all_types()
+
+        return render_template(
+            'edit.html', task=task, task_id=task_id, task_types=task_types
+        )
 
 
 @app.route('/delete/<string:task_id>', methods=['POST'])

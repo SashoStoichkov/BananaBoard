@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>BananaBoard - Create Task</title>
+	<title>BananaBoard - Create TaskType</title>
 	<!-- <link rel="icon" href=""> -->
 
 	<link rel="stylesheet" href="../static/css/board.css";>
@@ -27,37 +27,15 @@
 
 	<div class="board-container">
 		<div class="board-sec">
-			<form class="card card2" method="POST">
-				<h3>Create Task</h3>
+			<form action="{{ url_for('create_type') }}" class="card card2" method="POST">
+				<h3>Create Type</h3>
 
 				<input class="input" placeholder="title" type="text" name="title" required>
-				<input class="input" placeholder="description" type="text" name="description" required>
-				<select name="type" required>
-					<option value="">Select Type</option>
-					{% for type in task_types %}
-						<option value="{{ type[0] }}">{{ type[1] }}</option>
-					{% endfor %}
-				</select>
-
-				<br><br>
-
-				<!-- <div class="buttons">
-					<div class="button">
-						<button onclick="location.href = '/create-type';" type="submit" name="button" formnovalidate><img src="../static/images/submit.png"></button>
-					</div>
-				</div> -->
-
-				<select name="status" required>
-					<option value="">Select Status</option>
-					<option value="1">To Do</option>
-					<option value="2">Doing</option>
-					<option value="3">Done</option>
-				</select>
 
 				<div class="wrapper2">
 					<div class="buttons">
-						<div class="button">
-							<button formaction="{{ url_for('create') }}" type="submit" name="button"><img src="../static/images/submit.png"></button>
+						<div class="button login2">
+							<button type="submit" name="button"><img src="../static/images/submit.png"></button>
 						</div>
 					</div>
 				</div>
