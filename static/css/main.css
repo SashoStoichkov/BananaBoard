@@ -148,8 +148,11 @@ header > div {
 	position: fixed;
 	right: 1em;
 	bottom: 1em;
+	display: flex;
+	align-items: center;
 }
 
 .filter {
-	padding: 0.3em;
+	padding-top: 0.2em;
+
 }
