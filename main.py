@@ -94,34 +94,55 @@ def register():
 @app.route('/board', methods=['GET', 'POST'])
 @login_required
 def board():
+    if request.method == 'POST':
+        type_id = request.form['type']
 
-    to_do = Task.display_by_status(current_user.get_id(), '1')
-    doing = Task.display_by_status(current_user.get_id(), '2')
-    done = Task.display_by_status(current_user.get_id(), '3')
-    task_types = TaskType.get_all_types()
+        if type_id == '':
+            return redirect('/board')
 
-    return render_template(
-        'board.html',
-        current_user=current_user,
-        to_do=to_do, doing=doing, done=done, task_types=task_types
-    )
+        return redirect('/board/' + type_id)
+    else:
+        to_do = Task.display_by_status(current_user.get_id(), '1')
+        doing = Task.display_by_status(current_user.get_id(), '2')
+        done = Task.display_by_status(current_user.get_id(), '3')
+        task_types = TaskType.get_all_types()
+
+        return render_template(
+            'board.html',
+            current_user=current_user,
+            to_do=to_do, doing=doing, done=done,
+            task_types=task_types
+        )
 
 
-@app.route('/board-selected', methods=['GET', 'POST'])
+@app.route('/board/', methods=['GET', 'POST'])
 @login_required
-def board_selected():
+def board_redirect():
+    return redirect('/board')
 
-    type_id = request.form['type']
-    to_do = Task.display_by_type(current_user.get_id(), type_id, '1')
-    doing = Task.display_by_type(current_user.get_id(), type_id, '2')
-    done = Task.display_by_type(current_user.get_id(), type_id, '3')
-    task_types = TaskType.get_all_types()
 
-    return render_template(
-        'board-selected.html',
-        current_user=current_user,
-        to_do=to_do, doing=doing, done=done, task_types=task_types
-    )
+@app.route('/board/<string:type_id>', methods=['GET', 'POST'])
+@login_required
+def board_selected(type_id):
+    if request.method == 'POST':
+        type_id = request.form['type']
+
+        if type_id == '':
+            return redirect('/board')
+
+        return redirect('/board/' + type_id)
+    else:
+        to_do = Task.display_by_type(current_user.get_id(), type_id, '1')
+        doing = Task.display_by_type(current_user.get_id(), type_id, '2')
+        done = Task.display_by_type(current_user.get_id(), type_id, '3')
+        task_types = TaskType.get_all_types()
+
+        return render_template(
+            'board_selected.html',
+            current_user=current_user,
+            to_do=to_do, doing=doing, done=done,
+            task_types=task_types
+        )
 
 
 @app.route('/create', methods=['GET', 'POST'])
@@ -139,9 +160,6 @@ def create():
         if task:
             flash('Task with same title already exists!')
             return redirect('/create')
-
-        if title == '':
-            return redirect('/create-type')
 
         Task(title, description, status, str_type).create(user_id)
         return redirect('/board')
@@ -162,9 +180,8 @@ def create_type():
             flash('Task type already exists!')
             return redirect('/create-type')
 
-
         TaskType(title).create()
-        return redirect('/board')
+        return redirect('/create')
     else:
         return render_template('create_type.html')
 

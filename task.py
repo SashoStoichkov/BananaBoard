@@ -119,7 +119,8 @@ class Task:
                             ON tasks.id = user_tasks.task_id
                         INNER JOIN users
                             ON user_tasks.user_id = users.id
-                    WHERE users.id = ? AND task_types.id = ? AND tasks.task_status_id = ?
+                    WHERE users.id = ? AND task_types.id = ?
+                        AND tasks.task_status_id = ?
                 ''', (str(user_id), str(task_type_id), str(status_id))
             ).fetchall()
 

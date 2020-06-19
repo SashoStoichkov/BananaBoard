@@ -104,15 +104,15 @@
 			{% endif %}
 		</div>
 
-		<form action="/board" class="drop" method="POST">
-			<select class="prev-types" name="type" >
-				<option value="">Select Type</option>
+		<form action="/board/{{ type_id }}" class="drop" method="POST">
+			<select class="prev-types" name="type">
+				<option value="">All Types</option>
 				{% for type in task_types %}
 					<option value="{{ type[0] }}">{{ type[1] }}</option>
 				{% endfor %}
 			</select>
 
-			<button onclick="location.href = '/board';" type="button" name="button">C</button>
+			<button class="filter" type="submit" name="button"><img src="../static/images/filter.png" alt=""></button>
 		</form>
 
 	</div>
