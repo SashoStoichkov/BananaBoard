@@ -33,8 +33,8 @@ class Task:
             db.execute(
                 '''
                     INSERT INTO user_tasks
-                    VALUES (?, ?)
-                ''', (str(user_id), str(id))
+                    VALUES (?, ?, ?)
+                ''', (None, str(user_id), str(id))
             )
 
             return self

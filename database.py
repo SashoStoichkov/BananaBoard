@@ -73,12 +73,19 @@ conn.cursor().execute(
     '''
         CREATE TABLE IF NOT EXISTS user_tasks
             (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
                 user_id INTEGER NOT NULL,
                 task_id INTEGER NOT NULL,
 
                 FOREIGN KEY (user_id) REFERENCES users(id),
                 FOREIGN KEY (task_id) REFERENCES tasks(id)
             )
+    '''
+)
+conn.cursor().execute(
+    '''
+        CREATE UNIQUE INDEX IF NOT EXISTS idx_user_tasks
+        ON user_tasks (user_id, task_id);
     '''
 )
 conn.commit()
