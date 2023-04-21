@@ -20,7 +20,7 @@ prompt-toolkit==3.0.5
 ptyprocess==0.6.0
 Pygments==2.7.4
 six==1.15.0
-sqlparse==0.3.1
+sqlparse==0.4.4
 tabulate==0.8.7
 terminaltables==3.1.0
 traitlets==4.3.3
